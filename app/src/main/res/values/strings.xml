@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FoodReview</string>
+    <string name="local_food_review">Local Food Review</string>
 </resources>
