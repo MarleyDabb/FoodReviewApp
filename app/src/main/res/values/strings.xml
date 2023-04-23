@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">FoodReview</string>
     <string name="local_food_review">Local Food Review</string>
+    <string name="enter_your_postcode">Enter your postcode</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="restaurant">Restaurant</string>
 </resources>
