@@ -1,11 +1,11 @@
 
 package com.example.foodreview.models;
 
-import javax.annotation.Generated;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Generated("jsonschema2pojo")
+
 public class OpeningHours {
 
     @SerializedName("open_now")
