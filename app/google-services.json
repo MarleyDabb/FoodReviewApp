@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "535038776184",
+    "firebase_url": "https://android-studio-99e77-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "android-studio-99e77",
     "storage_bucket": "android-studio-99e77.appspot.com"
   },
@@ -22,7 +23,7 @@
           }
         },
         {
-          "client_id": "535038776184-mfcrsg4h5fvhns18on4nras0j02t1s44.apps.googleusercontent.com",
+          "client_id": "535038776184-5c0hgfdtb88gv5siqq6gp64e74aqm6ed.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -35,7 +36,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "535038776184-mfcrsg4h5fvhns18on4nras0j02t1s44.apps.googleusercontent.com",
+              "client_id": "535038776184-5c0hgfdtb88gv5siqq6gp64e74aqm6ed.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

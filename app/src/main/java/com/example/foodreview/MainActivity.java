@@ -24,6 +24,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.foodreview.ui.main.MainFragment;
+import com.google.android.gms.auth.api.identity.BeginSignInRequest;
+import com.google.android.gms.auth.api.identity.Identity;
+import com.google.android.gms.auth.api.identity.SignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.ApiException;
@@ -55,6 +61,9 @@ public class MainActivity extends AppCompatActivity {
     double lat,lon;
 
     List<RestaurantData> restaurantDataList;
+    private SignInClient oneTapClient;
+    private BeginSignInRequest signInRequest;
+
 
 
     @Override
@@ -66,6 +75,11 @@ public class MainActivity extends AppCompatActivity {
                     .replace(R.id.container, MainFragment.newInstance())
                     .commitNow();
         }
+
+        // Configure sign-in to request the user's ID, email address, and basic
+// profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+
+
 
         Places.initialize(getApplicationContext(), "AIzaSyAPgsR4B_WgxxvXLCi20ovyQN94dam5OHE");
         // Create a new PlacesClient instance
