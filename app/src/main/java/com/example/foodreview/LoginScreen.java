@@ -24,6 +24,7 @@ import java.util.List;
 public class LoginScreen extends AppCompatActivity {
 
     private Button signInBtn;
+    private Button skipBtn;
 
     // See: https://developer.android.com/training/basics/intents/result
     private final ActivityResultLauncher<Intent> signInLauncher = registerForActivityResult(
@@ -58,6 +59,12 @@ public class LoginScreen extends AppCompatActivity {
             // Successfully signed in
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             // ...
+            Intent i = new Intent(LoginScreen.this, MainActivity.class);
+            i.putExtra("User", user);
+            startActivity(i);
+
+            finish();
+
         } else {
             // Sign in failed. If response is null the user canceled the
             // sign-in flow using the back button. Otherwise check
@@ -72,16 +79,27 @@ public class LoginScreen extends AppCompatActivity {
         setContentView(R.layout.activity_login_screen);
 
         signInBtn = findViewById(R.id.signInBtn);
+        skipBtn = findViewById(R.id.skipSignInBtn);
+
+        skipBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(LoginScreen.this, MainActivity.class);
+                startActivity(i);
+            }
+        });
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user != null) {
+            Intent i = new Intent(LoginScreen.this, MainActivity.class);
+            startActivity(i);
+        }
 
         signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                createSignInIntent();
-
-               Intent i = new Intent(LoginScreen.this, MainActivity.class);
-               startActivity(i);
-
-               finish();
 
             }
         });

@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
+    android:id="@+id/containerl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundCol"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".MainActivity"
+    tools:context=".MainScreen"
     tools:ignore="DuplicateIds">
 
     <LinearLayout
@@ -40,58 +41,71 @@
             android:id="@+id/loggedInText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:text="Logged in"
+            android:textColor="@color/white"
             android:textAlignment="center"
-            android:textColor="@color/white" />
+            android:layout_marginBottom="12dp"
+            android:text="Logged in"/>
 
         <LinearLayout
-            android:layout_width="184dp"
+
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="vertical">
+            android:orientation="horizontal">
+
+            <Button android:layout_height="40dp" android:layout_width="40dp" android:background="@drawable/location" android:layout_marginEnd="7dp"/>
+
+
+            <fragment android:id="@+id/autocomplete_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+                tools:layout="@layout/activity_main_screen" />
+
+
+            <!--            <EditText-->
+            <!--                android:id="@+id/inputPostcode"-->
+            <!--                android:layout_width="275dp"-->
+            <!--                android:layout_height="58dp"-->
+            <!--                android:autofillHints="Enter your postcode"-->
+            <!--                android:background="@drawable/background_file"-->
+            <!--                android:backgroundTint="#DFD2D2"-->
+            <!--                android:drawableStart="@drawable/city"-->
+            <!--                android:gravity="center"-->
+            <!--                android:hint="@string/enter_your_postcode"-->
+            <!--                android:inputType="text"-->
+            <!--                android:padding="20dp"-->
+            <!--                android:textColor="#E8E3E3"-->
+            <!--                android:textColorHint="@color/black" />-->
 
 
             <Button
-                android:id="@+id/currentLocation"
-                android:layout_width="180dp"
-                android:layout_height="50dp"
-                android:backgroundTint="@color/primaryCol"
-                android:gravity="center"
-                android:text="My Location" />
+                android:id="@+id/search"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="7dp"
+                android:background="@drawable/search"
+                android:backgroundTint="#EDEAEA"
 
-            <Button
-                android:id="@+id/searchLocation"
-                android:layout_width="180dp"
-                android:layout_height="50dp"
-                android:backgroundTint="@color/primaryCol"
-                android:gravity="center"
-                android:text="Search Location" />
 
+                android:gravity="center" />
         </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="366dp"
-            android:layout_height="231dp"
-            tools:listitem="@layout/card_design" />
 
         <LinearLayout
             android:id="@+id/container2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="14dp"
             android:background="@color/backgroundCol"
+            android:layout_marginTop="14dp"
             tools:context=".MainActivity">
 
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="109dp"
                 android:layout_height="119dp"
-                android:contentDescription="@string/restaurant"
                 tools:layout_editor_absoluteX="16dp"
                 tools:layout_editor_absoluteY="165dp"
-                tools:srcCompat="@tools:sample/avatars" />
+                tools:srcCompat="@tools:sample/avatars"
+                android:contentDescription="@string/restaurant" />
 
             <LinearLayout
                 android:layout_width="match_parent"
