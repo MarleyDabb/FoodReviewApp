@@ -16,6 +16,9 @@
         android:theme="@style/Theme.FoodReview"
         tools:targetApi="31">
         <activity
+            android:name=".RestaurantView"
+            android:exported="false" />
+        <activity
             android:name=".MainScreen"
             android:exported="false" />
         <activity
