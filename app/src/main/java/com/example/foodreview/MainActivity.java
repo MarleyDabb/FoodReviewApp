@@ -28,6 +28,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.foodreview.ui.main.MainFragment;
 import com.google.android.gms.auth.api.identity.BeginSignInRequest;
@@ -78,8 +79,10 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerAdapter adapter;
 
-    List<Place> placesList = new ArrayList<>();;
-    List<Place> localPlaces = new ArrayList<>();;
+    List<Place> placesList = new ArrayList<>();
+    List<Place> localPlaces = new ArrayList<>();
+
+    public List<Place.Field> placeFields = Arrays.asList(Place.Field.NAME, Place.Field.TYPES, Place.Field.ADDRESS, Place.Field.ID, Place.Field.PHOTO_METADATAS);
 
 
 
@@ -90,8 +93,19 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = result.getData();
                     if (intent != null) {
                         Place place = Autocomplete.getPlaceFromIntent(intent);
-                        placesList.add(place);
                         Log.i(TAG, place.getName());
+
+                        if (isRestaurant(place)) {
+                            placesList.add(place);
+                        } else {
+                            Toast.makeText(this, "The place you selected is not a restaurant", Toast.LENGTH_SHORT).show();
+                        }
+
+                        Log.e(TAG, place.getName());
+                        Log.e(TAG, "Test");
+
+                        adapter = new RecyclerAdapter(placesList, MainActivity.this);
+                        recyclerView.setAdapter(adapter);
 
 
                     }
@@ -126,13 +140,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 placesList.clear();
                 Log.i(TAG, "Search btn clicked");
-                List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME);
 
-                Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fields).build(MainActivity.this);
+                Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, placeFields).build(MainActivity.this);
 
                 startAutocomplete.launch(intent);
-
-
 
             }
         });
@@ -161,7 +172,6 @@ public class MainActivity extends AppCompatActivity {
         // https://github.com/googlemaps/android-places-demos/blob/main/demo-java/app/src/main/java/com/example/placesdemo/CurrentPlaceActivity.java
 
 
-//        postcodeInput = findViewById(R.id.inputPostcode);
         loggedInText = findViewById(R.id.loggedInText);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -192,7 +202,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 50, locationListener);
 
-            List<Place.Field> placeFields = Arrays.asList(Place.Field.NAME, Place.Field.TYPES);
             FindCurrentPlaceRequest request = FindCurrentPlaceRequest.newInstance(placeFields);
             Task<FindCurrentPlaceResponse> placeResponse = placesClient.findCurrentPlace(request);
 
@@ -206,16 +215,8 @@ public class MainActivity extends AppCompatActivity {
                                 place.getName(),
                                 placeLikelihood.getLikelihood()));
 
-                        try {
-                            if (place.getTypes().contains(Place.Type.RESTAURANT)) {
-                                localPlaces.add(place);
-
-                                Log.i(TAG, "THIS IS A RESTAURANT ");
-                            } else {
-                                Log.i(TAG, "NOT A RESTAURANT");
-                            }
-                        } catch(NullPointerException err) {
-                            Log.e(TAG, err.getMessage());
+                        if (isRestaurant(place)) {
+                            localPlaces.add(place);
                         }
 
                     }
@@ -239,7 +240,25 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+
+    private boolean isRestaurant(Place place) {
+        try {
+            if (place.getTypes().contains(Place.Type.RESTAURANT)) {
+                Log.i(TAG, "THIS IS A RESTAURANT ");
+                return true;
+            } else {
+                Log.i(TAG, "NOT A RESTAURANT");
+                return false;
+            }
+        } catch(NullPointerException err) {
+            Log.e(TAG, err.getMessage());
+
+        }
+        return false;
+    }
 }
+
+
 
 /*
 
