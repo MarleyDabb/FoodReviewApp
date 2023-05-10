@@ -31,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.foodreview.ui.main.MainFragment;
+import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.auth.api.identity.BeginSignInRequest;
 import com.google.android.gms.auth.api.identity.Identity;
 import com.google.android.gms.auth.api.identity.SignInClient;
@@ -41,6 +42,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.PhotoMetadata;
@@ -81,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
 
     List<Place> placesList = new ArrayList<>();
     List<Place> localPlaces = new ArrayList<>();
+
+    Button signOut;
 
     public List<Place.Field> placeFields = Arrays.asList(Place.Field.NAME, Place.Field.TYPES, Place.Field.ADDRESS, Place.Field.ID, Place.Field.PHOTO_METADATAS);
 
@@ -129,6 +133,14 @@ public class MainActivity extends AppCompatActivity {
 
         searchLocation = findViewById(R.id.searchLocation);
         currentLocation = findViewById(R.id.currentLocation);
+        signOut = findViewById(R.id.signOut);
+
+        signOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signOut();
+            }
+        });
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
@@ -168,9 +180,6 @@ public class MainActivity extends AppCompatActivity {
         Places.initialize(getApplicationContext(), "AIzaSyAPgsR4B_WgxxvXLCi20ovyQN94dam5OHE");
         PlacesClient placesClient = Places.createClient(this);
 
-        // https://github.com/googlemaps/android-places-demos
-        // https://github.com/googlemaps/android-places-demos/blob/main/demo-java/app/src/main/java/com/example/placesdemo/CurrentPlaceActivity.java
-
 
         loggedInText = findViewById(R.id.loggedInText);
 
@@ -178,8 +187,10 @@ public class MainActivity extends AppCompatActivity {
 
         if (user != null) {
             loggedInText.setText(String.format("Welcome, %s", user.getDisplayName()));
+            Log.e(TAG, user.getDisplayName());
         } else {
             loggedInText.setText("You are not logged in");
+            signOut.setVisibility(View.GONE);
         }
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -239,6 +250,21 @@ public class MainActivity extends AppCompatActivity {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 50, locationListener);
 
         }
+    }
+
+    public void signOut() {
+        // [START auth_fui_signout]
+        AuthUI.getInstance()
+                .signOut(this)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(MainActivity.this, "Signed out", Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent( MainActivity.this, LoginScreen.class);
+                        startActivity(i);
+
+                    }
+                });
+        // [END auth_fui_signout]
     }
 
     private boolean isRestaurant(Place place) {

@@ -76,6 +76,15 @@
             android:layout_height="231dp"
             tools:listitem="@layout/card_design" />
 
+        <Button
+            android:id="@+id/signOut"
+            android:layout_width="366dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/primaryCol"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="Sign out" />
+
     </LinearLayout>
 
 </LinearLayout>

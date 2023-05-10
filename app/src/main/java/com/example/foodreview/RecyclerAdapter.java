@@ -1,8 +1,10 @@
 package com.example.foodreview;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+import static androidx.core.content.ContextCompat.startActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,7 +24,10 @@ import com.google.android.libraries.places.api.model.PhotoMetadata;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.FetchPhotoRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.PlacesViewHolder> {
@@ -51,6 +56,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Places
         getPhoto(placesList.get(position), holder.imageView);
         holder.cardView.setOnClickListener(view -> {
             Toast.makeText(context, "You selected " + name + "", Toast.LENGTH_SHORT).show();
+
+            Intent i = new Intent(view.getContext(), RestaurantView.class);
+
+            i.putExtra("placeName", name);
+            i.putExtra("placeId", placesList.get(position).getId());
+
+            context.startActivity(i);
         });
 
     }
@@ -74,8 +86,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Places
             imageView = itemView.findViewById(R.id.imageView);
             cardView = itemView.findViewById(R.id.cardViewWidget);
         }
-
-
     }
 
     private void getPhoto(Place place, ImageView imageView) {
