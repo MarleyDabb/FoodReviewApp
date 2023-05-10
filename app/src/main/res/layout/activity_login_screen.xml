@@ -5,6 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroundCol"
     android:gravity="center"
     tools:context=".LoginScreen">
 
@@ -12,7 +13,7 @@
         android:id="@+id/signInBtn"
         android:layout_width="178dp"
         android:layout_height="67dp"
-        android:background="@color/primaryCol"
+        android:backgroundTint="@color/primaryCol"
         android:text="@string/sign_in"
         android:gravity="center"
         android:layout_marginBottom="67dp"
@@ -23,7 +24,7 @@
         android:id="@+id/skipSignInBtn"
         android:layout_width="178dp"
         android:layout_height="67dp"
-        android:background="@color/primaryCol"
+        android:backgroundTint="@color/primaryCol"
         android:text="Skip"
         android:gravity="center"
         android:layout_marginBottom="67dp"

@@ -1,9 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroundCol"
     tools:context=".RestaurantView">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/rName"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:text="Name"
+        android:textColor="@color/primaryCol"
+        android:textSize="24dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:textColor="@color/white"
+        android:layout_height="60dp"
+        android:text="Reviews"
+        android:gravity="center"
+        android:textSize="18dp"
+        />
+
+
+    <EditText
+        android:id="@+id/reviewInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:hint="Write a review"
+        android:inputType="textMultiLine" />
+
+    <Button
+        android:id="@+id/reviewSubmit"
+        android:layout_width="108dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:backgroundTint="@color/primaryCol"
+        android:layout_gravity="center"
+        android:text="Submit" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/reviewRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="231dp"
+        tools:listitem="@layout/review_design"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
+
+    <Button
+        android:id="@+id/goBack"
+        android:layout_width="177dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/primaryCol"
+        android:text="Go back"
+        android:gravity="center" />
+
+
+</LinearLayout>
